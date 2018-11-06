@@ -18,7 +18,7 @@ type RequestResponse struct {
 }
 
 type Response struct {
-  StatementsBySubject map[string][]GromTriple           `json:"statementsBySubject"`
+  StatementsBySubject map[string][]GromTriple         `json:"statementsBySubject"`
   EdgesBySubject      map[string]map[string][]string  `json:"edgesBySubject"`
   StatusCode          int                             `json:"statusCode"`
   Uri                 string                          `json:"uri"`
@@ -60,21 +60,6 @@ func NewGromTriple(t triplestore.Triple) GromTriple {
     Object: object,
   }
 }
-
-// // Custom JSON Marshalling for triplestore.Triple
-// func (t triplestore2.Triple) MarshalJSON() ([]byte, error) {
-//   object := t.Object()
-//
-//   return json.Marshal(struct{
-//     Subject string
-//     Predicate string
-//     Object string
-//   }{
-//     Subject: t.Subject(),
-//     Predicate: t.Predicate(),
-//     Object: object.key(),
-//   })
-// }
 
 func MakeRequest(httpRequest *http.Request, httpError error, uri string, includeAuth bool, authToken string) (RequestResponse, error) {
   client := &http.Client{}
@@ -167,7 +152,6 @@ func GetData(uri string) (Response, error) {
   log.Printf("Decoded %v triples", len(tris))
 
 
-  // var edges map[string]
   for i := 0; i < len(tris); i++ {
     triple := tris[i]
 
@@ -178,6 +162,8 @@ func GetData(uri string) (Response, error) {
     object := triple.Object()
 
     statementsBySubject[subject] = append(statementsBySubject[subject], NewGromTriple(triple))
+
+    // decide if this is an edge
     objectResource, _ := object.Resource()
     if objectResource != "" && predicate != "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" {
       if edgesBySubject[subject] == nil {
@@ -188,22 +174,6 @@ func GetData(uri string) (Response, error) {
   }
 
   log.Printf("Found %v subjects\n", len(statementsBySubject))
-
-  /*log.Println("Marshalling statementsBySubject")
-  sbsJsonString, err := json.Marshal(statementsBySubject)
-  if err != nil {
-    log.Println(err)
-    response.Err = err.Error()
-    return response, err
-  }
-
-  log.Println("Marshalling edgesBySubject")
-  ebsJsonString, err := json.Marshal(edgesBySubject)
-  if err != nil {
-    log.Println(err)
-    response.Err = err.Error()
-    return response, err
-  }*/
 
   // Pass our statements and edges back in our response
   response.StatementsBySubject = statementsBySubject

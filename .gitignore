@@ -1,4 +1,5 @@
 /.idea/
+/vendor/
 /.bundle/
 /.yardoc
 /_yardoc/
@@ -10,3 +11,7 @@
 
 # rspec failure tracking
 .rspec_status
+
+# statically compiled go
+/ext/*.h
+/ext/*.so
