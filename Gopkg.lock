@@ -134,6 +134,14 @@
   version = "v1.4.7"
 
 [[projects]]
+  branch = "v1"
+  digest = "1:e6a5421ece62f71bef4f9d957747f5837900caa2e5e343da6e124a1b88abbfd0"
+  name = "gopkg.in/jarcoal/httpmock.v1"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "c463961d8bfec5823f8100e620bcc73e9afdd7d4"
+
+[[projects]]
   digest = "1:3c839a777de0e6da035c9de900b60cbec463b0a89351192c1ea083eaf9e0fce0"
   name = "gopkg.in/tomb.v1"
   packages = ["."]
@@ -156,6 +164,7 @@
     "github.com/onsi/ginkgo",
     "github.com/onsi/gomega",
     "github.com/wallix/triplestore",
+    "gopkg.in/jarcoal/httpmock.v1",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1
