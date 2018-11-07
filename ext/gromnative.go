@@ -1,26 +1,19 @@
 package main
 
 import (
+  "C"
   "bytes"
   "encoding/json"
-  "errors"
-  "fmt"
+  "github.com/ukparliament/gromnative/ext/net"
+  . "github.com/ukparliament/gromnative/ext/types/net"
   "github.com/wallix/triplestore"
-  "io/ioutil"
   "log"
-  "net/http"
-  "C"
 )
-
-type RequestResponse struct {
-  Body        []byte
-  StatusCode  int
-}
 
 type Response struct {
   StatementsBySubject map[string][]GromTriple         `json:"statementsBySubject"`
   EdgesBySubject      map[string]map[string][]string  `json:"edgesBySubject"`
-  StatusCode          int                             `json:"statusCode"`
+  StatusCode          int32                           `json:"statusCode"`
   Uri                 string                          `json:"uri"`
   Err                 string                          `json:"error"`
 }
@@ -61,65 +54,6 @@ func NewGromTriple(t triplestore.Triple) GromTriple {
   }
 }
 
-func MakeRequest(httpRequest *http.Request, httpError error, uri string, includeAuth bool, authToken string) (RequestResponse, error) {
-  client := &http.Client{}
-
-  if httpError != nil {
-    errorMessage := fmt.Sprintf("error creating request object for: %s\n", uri)
-
-    log.Print(errorMessage)
-
-    return RequestResponse{}, errors.New(errorMessage)
-  }
-
-  if includeAuth {
-    log.Println("Adding auth header")
-    authHeaderValue := fmt.Sprintf("Bearer %s", authToken)
-    httpRequest.Header.Add("Authorization", authHeaderValue)
-  }
-
-  log.Println("Making request")
-  resp, err := client.Do(httpRequest)
-  if err != nil {
-    errorMessage := fmt.Sprintf("error making request to: %s\n", uri)
-
-    fmt.Print(errorMessage)
-
-    defer resp.Body.Close()
-
-    return RequestResponse{}, errors.New(errorMessage)
-  }
-
-  log.Printf("Recieved status code: %v\n", resp.StatusCode)
-
-  log.Println("Reading body")
-  body, err := ioutil.ReadAll(resp.Body)
-
-  defer resp.Body.Close()
-
-  if resp.StatusCode != 200 {
-    errorMessage := fmt.Sprintf("Non-200 Status code. Status code: (%v), body: %s", resp.StatusCode, body)
-
-    log.Println(errorMessage)
-
-    return RequestResponse{}, errors.New(errorMessage)
-  }
-
-  requestResponse := RequestResponse {
-    Body: body,
-    StatusCode: resp.StatusCode,
-  }
-
-  return requestResponse, err
-}
-
-func GetRequest(uri string, includeAuth bool, authToken string) (RequestResponse, error) {
-  // Construct a new Request
-  req, err := http.NewRequest("GET", uri, nil)
-
-  return MakeRequest(req, err, uri, includeAuth, authToken)
-}
-
 func GetData(uri string) (Response, error) {
   // Placeholder response object
   response := Response { Err: "" }
@@ -130,7 +64,7 @@ func GetData(uri string) (Response, error) {
 
   log.Printf("Requesting: %v\n", uri)
 
-  requestResponse, err := GetRequest(uri, false, "")
+  requestResponse, err := net.Get(&GetInput{ Uri: uri })
   if requestResponse.StatusCode != 0 {
     response.StatusCode = requestResponse.StatusCode
   }

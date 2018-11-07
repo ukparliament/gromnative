@@ -1,0 +1,25 @@
+syntax = "proto3";
+package net;
+option go_package = "github.com/ukparliament/gromnative/ext/types/net";
+
+service Net {
+    rpc Get (GetInput) returns (GetOutput);
+}
+
+message GetInput {
+    string uri = 1;
+
+    message Header {
+        string key   = 1;
+        string value = 2;
+    }
+
+    repeated Header headers = 2;
+}
+
+message GetOutput {
+    string uri        = 1;
+    bytes  body       = 2;
+    int32  statusCode = 3;
+    string error      = 4;
+}

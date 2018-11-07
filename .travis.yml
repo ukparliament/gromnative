@@ -1,5 +1,16 @@
-sudo: false
-language: ruby
-rvm:
-  - 2.5.1
-before_install: gem install bundler -v 1.16.2
+language: go
+
+go:
+  - "1.11.x"
+go_import_path: github.com/ukparliament/gromnative
+
+before_install:
+  - curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+  - rvm use 2.5.3 --install --binary --fuzzy
+
+deploy:
+  provider: rubygems
+  gem: gromnative
+  api_key: $RUBYGEMS_API_KEY
+  on:
+    tags: true
