@@ -24,6 +24,9 @@
 #   go-tests = true
 #   unused-packages = true
 
+[prune]
+  go-tests = true
+  unused-packages = true
 
 [[constraint]]
   name = "github.com/golang/protobuf"
@@ -40,10 +43,6 @@
 [[constraint]]
   branch = "master"
   name = "github.com/wallix/triplestore"
-
-[prune]
-  go-tests = true
-  unused-packages = true
 
 [[constraint]]
   branch = "v1"

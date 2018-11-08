@@ -5,7 +5,6 @@ import (
   "fmt"
   . "github.com/ukparliament/gromnative/ext/types/net"
   "io/ioutil"
-  "log"
   "net/http"
 )
 
@@ -21,20 +20,17 @@ func Get(input *GetInput) (*GetOutput, error) {
 
   // Add any header objects to our request
   for i := 0; i < len(input.Headers); i++ {
-    log.Println(i)
-    log.Println(input.Headers)
-    log.Println(input.Headers[i])
     request.Header.Add(input.Headers[i].Key, input.Headers[i].Value)
   }
 
   // Perform our request
   client := http.Client{}
   resp, err := client.Do(request)
-  if err != nil {
-    if resp != nil {
-      defer resp.Body.Close()
-    }
+  if resp != nil {
+    defer resp.Body.Close()
+  }
 
+  if err != nil {
     output.Error = err.Error()
     return output, err
   }
@@ -47,7 +43,11 @@ func Get(input *GetInput) (*GetOutput, error) {
   // Read the body into a []byte
   body, err := ioutil.ReadAll(resp.Body)
 
-  defer resp.Body.Close()
+  if err != nil {
+    errorMessage := fmt.Sprintf("Error reading body from %v: %v", input.Uri, err)
+    output.Error = errorMessage
+    return output, err
+  }
 
   output.Body = body
 
@@ -55,7 +55,7 @@ func Get(input *GetInput) (*GetOutput, error) {
   if resp.StatusCode != 200 {
     errorMessage := fmt.Sprintf("Recieved %v status code from %v: %s", resp.StatusCode, input.Uri, body)
 
-    output.Error = err.Error()
+    output.Error = errorMessage
     return output, errors.New(errorMessage)
   }
 

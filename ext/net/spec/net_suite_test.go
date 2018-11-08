@@ -2,6 +2,8 @@ package spec
 
 import (
   "gopkg.in/jarcoal/httpmock.v1"
+  "io/ioutil"
+  "log"
 
   "testing"
 
@@ -10,6 +12,7 @@ import (
 )
 
 func TestNet(t *testing.T) {
+  log.SetOutput(ioutil.Discard)
 	RegisterFailHandler(Fail)
 	RunSpecs(t, "Net Suite")
 }

@@ -71,7 +71,7 @@ func GetData(uri string) (Response, error) {
 
   if err != nil {
     log.Printf("Error getting: %v\n", err)
-    response.Err = err.Error()
+    response.Err = requestResponse.Error
     return response, err
   }
 
