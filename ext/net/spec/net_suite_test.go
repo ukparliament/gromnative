@@ -1,32 +1,32 @@
 package spec
 
 import (
-  "gopkg.in/jarcoal/httpmock.v1"
-  "io/ioutil"
-  "log"
+	"gopkg.in/jarcoal/httpmock.v1"
+	"io/ioutil"
+	"log"
 
-  "testing"
+	"testing"
 
-  . "github.com/onsi/ginkgo"
-  . "github.com/onsi/gomega"
+	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/gomega"
 )
 
 func TestNet(t *testing.T) {
-  log.SetOutput(ioutil.Discard)
+	log.SetOutput(ioutil.Discard)
 	RegisterFailHandler(Fail)
 	RunSpecs(t, "Net Suite")
 }
 
 var _ = BeforeSuite(func() {
-  // block all HTTP requests
-  httpmock.Activate()
+	// block all HTTP requests
+	httpmock.Activate()
 })
 
 var _ = BeforeEach(func() {
-  // remove any mocks
-  httpmock.Reset()
+	// remove any mocks
+	httpmock.Reset()
 })
 
 var _ = AfterSuite(func() {
-  httpmock.DeactivateAndReset()
+	httpmock.DeactivateAndReset()
 })

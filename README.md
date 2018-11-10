@@ -12,6 +12,8 @@ TODO: Delete this and the text above, and describe your gem
 
 ## Installation
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/ukparliament/gromnative)](https://goreportcard.com/report/github.com/ukparliament/gromnative)
+
 Add this line to your application's Gemfile:
 
 ```ruby

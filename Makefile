@@ -28,11 +28,11 @@ test-ruby: check-built
 
 check-built:
 	@echo "-- Checking for built library"
-	@[ -f ./ext/*.so ] && echo "Lib found, not building" || make build
+	@[ -f ./ext/gromnative.so ] && echo "Lib found, not building" || make build
 
 proto:
 	@echo "-- Building Protobuf files"
-	protoc --go_out=$(GOPATH)/src ./ext/types/*.proto
+	protowrap -I. --go_out `go env GOPATH`/src ./**/**/*.proto
 
 setup:
 	@echo "-- Installing testing framework"
