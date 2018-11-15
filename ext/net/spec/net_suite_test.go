@@ -1,14 +1,13 @@
 package spec
 
 import (
-	"gopkg.in/jarcoal/httpmock.v1"
+  "gopkg.in/jarcoal/httpmock.v1"
 	"io/ioutil"
 	"log"
-
 	"testing"
 
-	. "github.com/onsi/ginkgo"
-	. "github.com/onsi/gomega"
+  . "github.com/onsi/ginkgo"
+  . "github.com/onsi/gomega"
 )
 
 func TestNet(t *testing.T) {

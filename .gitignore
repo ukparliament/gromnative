@@ -15,3 +15,6 @@
 # statically compiled go
 /ext/*.h
 /ext/*.so
+
+# test server PID
+/spec/support/*.pid

@@ -1,0 +1,7 @@
+<https://id.parliament.uk/43RHonMf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://id.parliament.uk/schema/Person> .
+<https://id.parliament.uk/43RHonMf> <https://id.parliament.uk/schema/personGivenName> "Diane" .
+<https://id.parliament.uk/43RHonMf> <https://id.parliament.uk/schema/personOtherNames> "Julie" .
+<https://id.parliament.uk/43RHonMf> <https://id.parliament.uk/schema/personFamilyName> "Abbott" .
+<https://id.parliament.uk/43RHonMf> <http://example.com/F31CBD81AD8343898B49DC65743F0BDF> "Ms Diane Abbott" .
+<https://id.parliament.uk/43RHonMf> <http://example.com/D79B0BAC513C4A9A87C9D5AFF1FC632F> "Rt Hon Diane Abbott MP" .
+<https://id.parliament.uk/43RHonMf> <https://id.parliament.uk/schema/Test> <https://id.parliament.uk/12345678> .

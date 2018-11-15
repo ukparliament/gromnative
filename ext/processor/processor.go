@@ -30,7 +30,7 @@ func NewTriple(t triplestore.Triple) Triple {
 	resource, _ := t.Object().Resource()
 
 	if isBnode {
-		object = bnode
+		object = "_:" + bnode
 	} else if isLiteral {
 		var literal string
 
