@@ -2,6 +2,7 @@ package processor
 
 import (
 	"bytes"
+	"strings"
 	"github.com/wallix/triplestore"
 	"log"
 )
@@ -42,7 +43,7 @@ func NewTriple(t triplestore.Triple) Triple {
 
 		object = literal
 	} else {
-		object = resource
+		object = "<" + resource + ">"
 	}
 
 	return Triple{
@@ -85,7 +86,11 @@ func Process(input *ProcessorInput) (*ProcessorOutput, error) {
 			if edgesBySubject[subject] == nil {
 				edgesBySubject[subject] = make(map[string][]string)
 			}
-			edgesBySubject[subject][predicate] = append(edgesBySubject[subject][predicate], objectResource)
+
+			predicateSlice := strings.Split(predicate, "/")
+			predicateObject := predicateSlice[len(predicateSlice)-1]
+
+			edgesBySubject[subject][predicateObject] = append(edgesBySubject[subject][predicateObject], objectResource)
 		}
 	}
 

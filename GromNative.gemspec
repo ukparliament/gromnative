@@ -1,10 +1,10 @@
 
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'GromNative/version'
+require 'grom_native/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'GromNative'
+  spec.name          = 'grom_native'
   spec.version       = GromNative::VERSION
   spec.authors       = ['Matt Rayner']
   spec.email         = ['m@rayner.io']
@@ -23,6 +23,9 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_dependency 'ffi', '~> 1.9'
+  spec.add_dependency 'grom'
+  spec.add_dependency 'rdf', '~> 3.0'
+  spec.add_dependency 'parliament-grom-decorators'
 
   spec.add_development_dependency 'bundler', '~> 1.16'
   spec.add_development_dependency 'rack', '~> 2.0'

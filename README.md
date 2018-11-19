@@ -17,7 +17,7 @@ TODO: Delete this and the text above, and describe your gem
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'GromNative'
+gem 'grom_native'
 ```
 
 And then execute:
@@ -52,5 +52,18 @@ Everyone interacting in the GromNative project’s codebases, issue trackers, ch
 
 ```bash
 ./bin/console
-require 'json'; data = JSON.parse(GromNative.get('https://api.parliament.uk/query/person_by_id?person_id=43RHonMf'))['statementsBySubject']
+require 'parliament/grom/decorator'; n = GromNative.fetch(uri: 'http://api.parliament.uk/query/person_by_id.nt?person_id=43RHonMf', filter: ['https://id.parliament.uk/schema/Person'], decorators: Parliament::Grom::Decorator).first
+```
+
+```bash
+require 'parliament/grom/decorator'
+require 'benchmark'
+
+puts Benchmark.measure {
+    10.times do
+        GromNative.fetch(uri: 'http://api.parliament.uk/query/person_by_id.nt?person_id=43RHonMf', filter: ['https://id.parliament.uk/schema/Person'], decorators: Parliament::Grom::Decorator).first
+    end
+}
+
+nodes = GromNative.fetch(uri: 'http://api.parliament.uk/query/person_index', filter: ['https://id.parliament.uk/schema/Person'], decorators: Parliament::Grom::Decorator)
 ```

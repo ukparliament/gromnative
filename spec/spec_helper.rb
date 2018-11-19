@@ -1,5 +1,5 @@
 require "bundler/setup"
-require "GromNative"
+require "grom_native"
 require 'webmock/rspec'
 
 $rack_pid = nil

@@ -5,10 +5,27 @@ RSpec.describe GromNative do
 
   describe '.get' do
     context 'with a valid url' do
-      it 'makes the expected request' do
-        val = subject.get('http://localhost:3333/full.nt')
+      context 'and a 200 status code' do
+        it 'makes the expected request' do
+          subject.get('http://localhost:3333/full.nt')
+        end
 
-        puts val
+        pending 'add tests'
+      end
+
+      context 'and a 5xx status code' do
+        it { subject.get('http://localhost:3333/500') }
+        pending 'add tests'
+      end
+
+      context 'and a 3xx status code' do
+        it { subject.get('http://localhost:3333/302') }
+        pending 'add tests'
+      end
+
+      context 'and a 4xx status code' do
+        it { subject.get('http://localhost:3333/404') }
+        pending 'add tests'
       end
     end
 
