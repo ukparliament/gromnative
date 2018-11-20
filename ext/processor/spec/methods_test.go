@@ -48,7 +48,7 @@ var _ = Describe("Processor", func() {
         expected := processor.Triple{
           Subject: "https://id.parliament.uk/12345678",
           Predicate: "https://id.parliament.uk/shema/PredicateName",
-          Object:  "https://id.parliament.uk/23456789",
+          Object:  "<https://id.parliament.uk/23456789>",
         }
 
         triple := triplestore.SubjPredRes("https://id.parliament.uk/12345678", "https://id.parliament.uk/shema/PredicateName", "https://id.parliament.uk/23456789")

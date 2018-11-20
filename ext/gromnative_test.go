@@ -47,7 +47,7 @@ var _ = Describe("gromnative", func() {
           processor.Triple {
             Subject: "https://id.parliament.uk/43RHonMf",
             Predicate: "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
-            Object: "https://id.parliament.uk/schema/Person",
+            Object: "<https://id.parliament.uk/schema/Person>",
           },
           processor.Triple {
             Subject: "https://id.parliament.uk/43RHonMf",
@@ -77,12 +77,12 @@ var _ = Describe("gromnative", func() {
           processor.Triple {
             Subject: "https://id.parliament.uk/43RHonMf",
             Predicate: "https://id.parliament.uk/schema/Test",
-            Object: "https://id.parliament.uk/12345678",
+            Object: "<https://id.parliament.uk/12345678>",
           })
         edgesBySubject := make(map[string]map[string][]string)
         edgesBySubject["https://id.parliament.uk/43RHonMf"] = make(map[string][]string)
-        edgesBySubject["https://id.parliament.uk/43RHonMf"]["https://id.parliament.uk/schema/Test"] = append(
-          edgesBySubject["https://id.parliament.uk/43RHonMf"]["https://id.parliament.uk/schema/Test"],
+        edgesBySubject["https://id.parliament.uk/43RHonMf"]["Test"] = append(
+          edgesBySubject["https://id.parliament.uk/43RHonMf"]["Test"],
           "https://id.parliament.uk/12345678")
 
         expected := Response{
