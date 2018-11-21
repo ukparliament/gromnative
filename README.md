@@ -65,5 +65,7 @@ puts Benchmark.measure {
     end
 }
 
-nodes = GromNative.fetch(uri: 'http://api.parliament.uk/query/person_index', filter: ['https://id.parliament.uk/schema/Person'], decorators: Parliament::Grom::Decorator)
+puts Benchmark.measure {
+    GromNative.fetch(uri: 'http://api.parliament.uk/query/person_index', filter: ['https://id.parliament.uk/schema/Person'], decorators: Parliament::Grom::Decorator)
+}
 ```

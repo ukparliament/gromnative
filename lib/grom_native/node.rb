@@ -10,9 +10,7 @@ module GromNative
 
     # @param [Array] statements an array of n-triple statements.
     def initialize(statements, decorators = nil)
-      @statements = statements
-
-      populate(decorators)
+      populate(statements, decorators)
     end
 
     # Allows the user to access instance variables as methods or raise an error if the variable is not defined.
@@ -68,19 +66,19 @@ module GromNative
     #
     # @return [Boolean] a boolean depending on whether or not the Grom::Node is a blank node
     def blank?
-      @statements.first.fetch('subject', '').match(%r(^_:))
+      @graph_id.match(%r(^_:))
     end
 
     private
 
-    def set_graph_id
-      graph_id = Grom::Helper.get_id(@statements.first['subject'])
+    def set_graph_id(statements)
+      graph_id = Grom::Helper.get_id(statements.first['subject'])
       instance_variable_set('@graph_id'.to_sym, graph_id)
     end
 
-    def populate(decorators)
-      set_graph_id
-      @statements.each do |statement|
+    def populate(statements, decorators)
+      set_graph_id(statements)
+      statements.each do |statement|
         predicate = Grom::Helper.get_id(statement['predicate']).to_sym
         object = RDF::NTriples::Reader.parse_object(statement['object'])
 
