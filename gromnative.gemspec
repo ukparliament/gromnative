@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ['m@rayner.io']
 
   spec.summary       = %q{A GROM implementation using a GO native extension for heavy lifting.}
-  spec.homepage      = 'https://github.com/mattrayner/nativegrom'
+  spec.homepage      = 'https://github.com/ukparliament/gromnative'
   spec.license       = 'MIT'
 
   # Specify which files should be added to the gem when it is released.
